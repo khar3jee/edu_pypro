@@ -4,11 +4,11 @@ My solutions and code as I work through the book.
 
 ## Links
 
-[Buy the book](https://www.manning.com/books/practices-of-the-python-pro)
-[Github link](https://github.com/daneah/practices-of-the-python-pro)
-[PythonPro.com](https://thepythonpro.com/)
-[Dane Hillard](https://dane.engineering/)
-[Book Errata](https://manning-content.s3.amazonaws.com/download/5/37ab6ad-4ef8-4cb9-be48-d728a9e0ed46/Hillard_PracticesofthePythonPro_err2.html)
+- [Buy the book](https://www.manning.com/books/practices-of-the-python-pro)
+- [Github link](https://github.com/daneah/practices-of-the-python-pro)
+- [PythonPro.com](https://thepythonpro.com/)
+- [Dane Hillard](https://dane.engineering/)
+- [Book Errata](https://manning-content.s3.amazonaws.com/download/5/37ab6ad-4ef8-4cb9-be48-d728a9e0ed46/Hillard_PracticesofthePythonPro_err2.html)
 
 ### Contributing
 
