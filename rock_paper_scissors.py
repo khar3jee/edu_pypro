@@ -14,13 +14,13 @@ What is the intent (besides refactor)?
 TODO
 - figure out intent
 - refactor code-blob into functions of one concern
-    - interface
-    - user choice
-    - computer choice
+    x interface
+    x user choice
+    x computer choice
     - comparison and result
     draw paper vs paper
-    win paper beats rock
-    loss scissors beats paper
+    win paper beats rock or rock beats scissors
+    loss scissors beats paper or paper beats rock
 """
 
 import random
@@ -36,8 +36,9 @@ def main():
 
 def game_menu():
     """prints player choices"""
-    print('Welcome to a game Rock, Paper, Scissors:\
-        \n(1) Rock \n(2) Paper\n(3) Scissors')
+    print('Welcome to a game of Rock, Paper, Scissors:')
+    for i in range(len(OPTIONS)):
+        print(f'{i+1}. {OPTIONS[i]}')
 
 def get_human_choice():
     """takes user input"""
