@@ -58,18 +58,15 @@ def comparison(human_choice, computer_choice):
     elif human_choice == 'rock':
         if computer_choice == 'paper':
             return 'Sorry, paper beat rock'
-        elif computer_choice == 'scissors':
-            return 'Yes, rock beat scissors!'
+        return 'Yes, rock beat scissors!'
     elif human_choice == 'paper':
         if computer_choice == 'scissors':
             return 'Sorry scissors beat paper'
-        elif computer_choice == 'rock':
-            return 'Yes, paper beat rock!'
+        return 'Yes, paper beat rock!'
     elif human_choice == 'scissors':
         if computer_choice == 'rock':
             return 'Sorry rock beat scissors'
-        elif computer_choice == 'paper':
-            return 'Yes, scissors beat paper!'
+        return 'Yes, scissors beat paper!'
 
 if __name__ == '__main__':
     main()
