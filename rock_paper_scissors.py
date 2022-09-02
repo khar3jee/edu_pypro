@@ -12,15 +12,15 @@ What is the intent (besides refactor)?
     - draw
 - response
 TODO
-- figure out intent
-- refactor code-blob into functions of one concern
+x figure out intent
+x refactor code-blob into functions of one concern
     x interface
     x user choice
     x computer choice
-    - comparison and result
+    x comparison and result
     draw paper vs paper
     win paper beats rock or rock beats scissors
-    loss scissors beats paper or paper beats rock
+    lose scissors beats paper or paper beats rock
 """
 
 import random
@@ -32,7 +32,10 @@ OPTIONS = ['rock', 'paper', 'scissors']
 def main():
     """presents menu and calls other functions"""
     game_menu()
-    print(comparison(get_human_choice(),get_computer_choice()))
+    human_choice = get_human_choice()
+    computer_choice = get_computer_choice()
+    print_choices(human_choice, computer_choice)
+    print_results(human_choice, computer_choice)
 
 def game_menu():
     """prints player choices"""
@@ -42,32 +45,35 @@ def game_menu():
 
 def get_human_choice():
     """takes user input"""
-    human_choice = OPTIONS[int(input('Enter the number of your choice: ')) - 1]
-    print(f'You chose {human_choice}')
-    return human_choice
+    return OPTIONS[int(input('Enter the number of your choice: ')) - 1]
 
 def get_computer_choice():
     """generates a random choice for the computer"""
-    computer_choice = random.choice(OPTIONS)
+    return random.choice(OPTIONS)
+    
+def print_choices(human_choice, computer_choice):
+    """Prints selected choices"""
+    print(f'You chose {human_choice}')
     print(f'The computer chose {computer_choice}')
-    return computer_choice
 
-def comparison(human_choice, computer_choice):
+def comparison(human_choice, computer_choice, computer_wins, computer_loses):
     """compares player inputs and returns game results"""
-    if human_choice == computer_choice:
-        return 'Draw!'
-    elif human_choice == 'rock':
-        if computer_choice == 'paper':
-            return 'Sorry, paper beat rock'
-        return 'Yes, rock beat scissors!'
-    elif human_choice == 'paper':
-        if computer_choice == 'scissors':
-            return 'Sorry scissors beat paper'
-        return 'Yes, paper beat rock!'
-    elif human_choice == 'scissors':
-        if computer_choice == 'rock':
-            return 'Sorry rock beat scissors'
-        return 'Yes, scissors beat paper!'
+    if computer_choice == computer_wins:
+        print(f'Sorry, {computer_choice} beats {human_choice}')
+    elif computer_choice == computer_loses:
+        print(f'Yes, {human_choice} beats {computer_choice}')
 
+def print_results(human_choice, computer_choice):
+    """prints game results"""
+    if human_choice == computer_choice:
+        print('Draw!')
+
+    if human_choice == 'rock':
+        comparison(human_choice, computer_choice, 'paper', 'scissors')
+    elif human_choice == 'paper':
+        comparison(human_choice, computer_choice, 'scissors', 'rock')
+    elif human_choice == 'scissors':
+        comparison(human_choice, computer_choice, 'rock', 'paper')
+ 
 if __name__ == '__main__':
     main()
