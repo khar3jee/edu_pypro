@@ -1,0 +1,7 @@
+blue
+orange
+purple
+green
+silver
+black
+brown
