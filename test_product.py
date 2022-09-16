@@ -21,3 +21,10 @@ class ProductTestCase(unittest.TestCase):
         expected_value = 'BLACK'
         actual_value = small_black_shoes.transform_color_for_sku()
         self.assertEqual(expected_value, actual_value)
+
+    def test_generate_sku(self):
+        """unit-test for generate_sku"""
+        small_black_shoes = Product('shoes', 'S', 'black')
+        expected_value = 'SHOES-S-BLACK'
+        actual_value = small_black_shoes.generate_sku()
+        self.assertEqual(expected_value, actual_value)

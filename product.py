@@ -3,7 +3,11 @@ From Practices of the Python Pro
 """
 
 class Product:
-    def __init__(self, name, size, color):  # <1>
+    """
+    Product class used to identify
+    attributes of items bought or sold on site
+    """
+    def __init__(self, name, size, color):
         self.name = name
         self.size = size
         self.color = color
@@ -14,7 +18,7 @@ class Product:
     def transform_color_for_sku(self):
         return self.color.upper()
 
-    def generate_sku(self):  # <2>
+    def generate_sku(self):
         """
         Generates a SKU for this product.
 
