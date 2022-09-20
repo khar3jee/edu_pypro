@@ -36,18 +36,59 @@ class DatabaseManager():
         """close db connection"""
         self.connection.close() #2
 
-    def _execute(self, statement):
-        """
-        x-accept stmt as str
-        -get cursor from db.con
-        -exec stmt using cursor
-        -return cursor
-        """
-        cursor = self.connection.cursor()
-        cursor.execute(statement)
-        print('_execute called')
-        return cursor
+    def _execute(self, statement, values=None):
+        """executes database methods in sqlite"""
+        with self.connection:
+            cursor = self.connection.cursor()
+            cursor.execute(statement, values or [])
+            print('_execute called')
+            return cursor
 
+    def create_table(self, table_name, columns):
+        """creates database tables in sqlite"""
+        """
+        x-determine col names for table
+        x-determine col datatypes
+        x-construct sql stmt
+        x-must be dict type
+        CREATE TABLE IF NOT EXISTS bookmarks(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        url TEXT NOT NULL,
+        notes TEXT NOT NULL,
+        date_added TEXT NOT NULL);
+        """
+        column_types = [
+            f'{column_name} {data_type}'
+            for column_name, data_type in columns.items()
+        ]
+        self._execute(
+            f'''
+            CREATE TABLE IF NOT EXISTS {table_name}
+            ({', '.join(column_types)});
+            '''
+        )
+
+    def add(self, table_name, data):
+        """Adds data to db
+        INSERT INTO bookmarks
+        (title, url, notes, date_added)
+        VALUES (?, ?, ?, ?)
+        """
+        placeholders = ', '.join('?' * len(data))
+        column_names = ', '.join(data.keys())
+        column_values = tuple(data.values())
+        
+        self._execute(
+            f'''
+            INSERT INTO {table_name}
+            ({column_names})
+            VALUES ({placeholders});
+            ''',
+            column_values,
+        )
+    
+    
 
 
 """
