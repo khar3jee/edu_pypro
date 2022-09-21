@@ -31,7 +31,6 @@ class AddBookmarkCommand:
 class DeleteBookmarkCommand:
     """deletes selected bookmarks from database"""
     def execute(self, data):
-        print('DelBk exec')
         db.delete('bookmarks', {'id': data})
         return 'Bookmark deleted'
 
@@ -41,7 +40,6 @@ class ListBookmarkCommand:
         self.order_by = order_by
 
     def execute(self):
-        print('ListBk exec')
         return db.select('bookmarks', order_by=self.order_by).fetchall()
 
 class UpdateBookmarkCommand:

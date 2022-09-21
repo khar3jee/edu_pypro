@@ -41,7 +41,6 @@ class DatabaseManager():
         with self.connection:
             cursor = self.connection.cursor()
             cursor.execute(statement, values or [])
-            print('_execute called')
             return cursor
 
     def create_table(self, table_name, columns):
@@ -66,13 +65,6 @@ class DatabaseManager():
         placeholders = ', '.join('?' * len(data))
         column_names = ', '.join(data.keys())
         column_values = tuple(data.values())
-        
-        print(f'''
-            INSERT INTO {table_name}
-            ({column_names})
-            VALUES ({placeholders});
-            {column_values}
-        ''')
 
         self._execute(
             f'''
@@ -91,12 +83,6 @@ class DatabaseManager():
         placeholders = [f'{column} = ?' for column in criteria.keys()]
         delete_criteria = ' AND '.join(placeholders)
         column_values = tuple(criteria.values())
-
-        print(f'''
-        DELETE FROM {table_name}
-        WHERE {delete_criteria}
-        {column_values}
-        ''')
 
         self._execute(
             f'''
@@ -128,8 +114,6 @@ class DatabaseManager():
     
     def drop_table(self, table_name):
         self._execute(f'DROP TABLE {table_name}')
-    
-
 
 """
 1. https://docs.python.org/3/library/sqlite3.html#sqlite3.connect
