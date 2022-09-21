@@ -33,3 +33,14 @@ class TestDatabase:
             'test_notes': 'text not null',
             'test_date_added': 'text not null',
         })
+
+    def test_add_bookmark(self):
+        self.db.add('testtable', {
+            'test_title': 'text not null',
+            'test_url': 'text not null',
+            'test_notes': 'text not null',
+            'test_date_added': 'text not null',
+        })
+
+    def test_delete_bookmark(self):
+        self.db.delete('testtable', )

@@ -46,18 +46,6 @@ class DatabaseManager():
 
     def create_table(self, table_name, columns):
         """creates database tables in sqlite"""
-        """
-        x-determine col names for table
-        x-determine col datatypes
-        x-construct sql stmt
-        x-must be dict type
-        CREATE TABLE IF NOT EXISTS bookmarks(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        title TEXT NOT NULL,
-        url TEXT NOT NULL,
-        notes TEXT NOT NULL,
-        date_added TEXT NOT NULL);
-        """
         column_types = [
             f'{column_name} {data_type}'
             for column_name, data_type in columns.items()
@@ -79,6 +67,13 @@ class DatabaseManager():
         column_names = ', '.join(data.keys())
         column_values = tuple(data.values())
         
+        print(f'''
+            INSERT INTO {table_name}
+            ({column_names})
+            VALUES ({placeholders});
+            {column_values}
+        ''')
+
         self._execute(
             f'''
             INSERT INTO {table_name}
@@ -88,6 +83,51 @@ class DatabaseManager():
             column_values,
         )
     
+    def delete(self, table_name, criteria):
+        """delete row in database
+        DELETE FROM bookmarks,
+        WHERE id = 0;
+        """
+        placeholders = [f'{column} = ?' for column in criteria.keys()]
+        delete_criteria = ' AND '.join(placeholders)
+        column_values = tuple(criteria.values())
+
+        print(f'''
+        DELETE FROM {table_name}
+        WHERE {delete_criteria}
+        {column_values}
+        ''')
+
+        self._execute(
+            f'''
+            DELETE FROM {table_name}
+            WHERE {delete_criteria}
+            ''',
+            column_values,
+        )
+        
+
+    def select(self, table_name, criteria=None, order_by=None):
+        """selects bookmarks based off of criteria"""
+        criteria = criteria or {}
+        query = f'SELECT * FROM {table_name}'
+        column_values = tuple(criteria.values())
+
+        if criteria:
+            placeholders = [f'{column} = ?' for column in criteria.keys()]
+            select_criteria = ' AND '.join(placeholders)
+            query += f'WHERE {select_criteria}'
+
+        if order_by:
+            query += f'ORDER BY {order_by}'
+        
+        return self._execute(
+            query,
+            column_values,
+        )
+    
+    def drop_table(self, table_name):
+        self._execute(f'DROP TABLE {table_name}')
     
 
 
